@@ -119,5 +119,5 @@ def main():
 
 
 if __name__ == '__main__':
-    debug_enabled(True)
+    debug_enabled()
     main()
