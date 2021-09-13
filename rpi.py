@@ -4,7 +4,7 @@ from os import uname
 from socket import gethostname
 import subprocess
 import re
-
+import psutil
 
 def parse_output(pattern, args):
     try:
@@ -33,3 +33,10 @@ def host_name():
 
 def os_name():
     return " ".join(uname())
+
+def cpu_usage():
+    return psutil.cpu_percent()
+
+def memory_usage():
+    return psutil.virtual_memory().percent
+

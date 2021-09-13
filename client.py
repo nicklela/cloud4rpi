@@ -54,17 +54,25 @@ def main():
     Available types: 'bool', 'numeric', 'string', 'location'
     """
     variables = {
-        'Room Temp': {
+        'Room Temp (c)': {
             'type': 'numeric',
             'bind': dht_sensor.read_temperature
         },
-         'Room Humidity': {
+         'Room Humidity (%)': {
              'type': 'numeric',
              'bind': dht_sensor.read_humidity
          },
-        'CPU Temp': {
+        'CPU Temp (c)': {
             'type': 'numeric',
             'bind': rpi.cpu_temp
+        },
+        'CPU Usage (%)': {
+            'type': 'numeric',
+            'bind': rpi.cpu_usage
+        },
+        'Memory Usage (%)': {
+            'type': 'numeric',
+            'bind': rpi.memory_usage
         },
         'Location': {
             'type': 'location',
