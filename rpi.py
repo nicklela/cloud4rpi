@@ -35,8 +35,8 @@ def os_name():
     return " ".join(uname())
 
 def cpu_usage():
-    return psutil.cpu_percent()
+    return round(psutil.cpu_percent(), 2)
 
 def memory_usage():
-    return psutil.virtual_memory().percent
+    return round(psutil.virtual_memory().percent, 2)
 

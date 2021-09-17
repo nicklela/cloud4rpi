@@ -15,9 +15,9 @@ class DHT22(object):
 
     def read_temperature(self):
         humidity, temperature = self.read()
-        return temperature
+        return round(temperature, 2)
 
     def read_humidity(self):
         humidity, temperature = self.read()
-        return humidity
+        return round(humidity, 2)
 
