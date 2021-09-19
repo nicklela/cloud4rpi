@@ -17,8 +17,10 @@ LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
 def debug_enabled(debug_enable: False):
     if(debug_enable is True):
         logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
+        cloud4rpi.set_logging_level(level=logging.DEBUG)
     else:
         logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
+        cloud4rpi.set_logging_level(level=logging.INFO)
 
 def main():
     """
@@ -54,23 +56,23 @@ def main():
     Available types: 'bool', 'numeric', 'string', 'location'
     """
     variables = {
-        'Room Temp (c)': {
+        'Room Temp': {
             'type': 'numeric',
             'bind': dht_sensor.read_temperature
         },
-         'Room Humidity (%)': {
+         'Room Humidity': {
              'type': 'numeric',
              'bind': dht_sensor.read_humidity
          },
-        'CPU Temp (c)': {
+        'CPU Temp': {
             'type': 'numeric',
             'bind': rpi.cpu_temp
         },
-        'CPU Usage (%)': {
+        'CPU Usage': {
             'type': 'numeric',
             'bind': rpi.cpu_usage
         },
-        'Memory Usage (%)': {
+        'Memory Usage': {
             'type': 'numeric',
             'bind': rpi.memory_usage
         },
@@ -104,10 +106,12 @@ def main():
 
         while True:
             if data_timer <= 0:
+                logging.debug("publish data")
                 device.publish_data()
                 data_timer = config.interval
 
             if diag_timer <= 0:
+                logging.debug("publish diag")
                 device.publish_diag()
                 diag_timer = config.interval * 2
 
@@ -127,5 +131,5 @@ def main():
 
 
 if __name__ == '__main__':
-    debug_enabled(False)
+    debug_enabled(True)
     main()
