@@ -3,3 +3,4 @@ pycodestyle
 pylint
 pyfakefs
 Adafruit_DHT
+psutil
