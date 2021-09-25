@@ -13,7 +13,9 @@ class Configuration:
 
         if 'token' not in setting or not setting['token']:
             return False
-        if 'interval' not in setting or not setting['interval']:
+        if 'data_interval' not in setting or not setting['data_interval']:
+            return False
+        if 'diag_interval' not in setting or not setting['diag_interval']:
             return False
 
         return True        
@@ -56,5 +58,14 @@ class Configuration:
         return self._settings['token']
 
     @property
-    def interval(self) -> int:
-        return self._settings['interval']
+    def data_interval(self) -> int:
+        return self._settings['data_interval']
+    
+    @property
+    def diag_interval(self) -> int:
+        return self._settings['diag_interval']
+
+    @property
+    def log(self) -> str:
+        return self._settings['log']
+

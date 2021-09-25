@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-
+import logging
 import Adafruit_DHT 
+import time
 
 DHT_PIN = 4  
+RETRY_COUNT=5
 
 class DHT22(object):
 
@@ -11,7 +13,23 @@ class DHT22(object):
         self.pin = DHT_PIN
 
     def read(self):
-        return Adafruit_DHT.read_retry(self.sensor, self.pin)
+        humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.pin)
+        
+        retry_count = 0
+        while(humidity is None or temperature is None):
+
+            retry_count += 1
+            if(retry_count > RETRY_COUNT):
+                humidity = 0
+                temperature = 0
+                logging.error("No response from DHT22")
+                break
+
+            time.sleep(1)
+            logging.warn("Failed to read DHT22, retry in {0}/{1}".format(retry_count, RETRY_COUNT))
+            humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.pin)
+
+        return humidity, temperature
 
     def read_temperature(self):
         humidity, temperature = self.read()

@@ -1,4 +1,6 @@
 {
   "token": "your token",
-  "interval": 60
+  "data_interval": 60,
+  "diag_interval": 300,
+  "log": "cloud4rpi.log"
 }

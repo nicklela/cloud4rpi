@@ -45,6 +45,17 @@ def main():
     logging.debug('config {0}'.format(config.settings))
 
     """
+    Check to see if we need log file
+    """
+    if config.log is not None:
+        fileLog = logging.FileHandler(config.log)
+        logFormat = logging.Formatter(LOG_FORMAT)
+        fileLog.setFormatter(logFormat)
+        rootLog = logging.getLogger()
+        rootLog.addHandler(fileLog)
+        logging.debug('Log file: ' + config.log)
+
+    """
     Initial devices
     """
     dht_sensor = DHT22()
@@ -108,12 +119,12 @@ def main():
             if data_timer <= 0:
                 logging.debug("publish data")
                 device.publish_data()
-                data_timer = config.interval
+                data_timer = config.data_interval
 
             if diag_timer <= 0:
                 logging.debug("publish diag")
                 device.publish_diag()
-                diag_timer = config.interval * 2
+                diag_timer = config.diag_interval
 
             sleep(POLL_INTERVAL)
             diag_timer -= POLL_INTERVAL
