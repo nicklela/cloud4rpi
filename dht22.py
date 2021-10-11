@@ -5,6 +5,8 @@ import time
 
 DHT_PIN = 4  
 RETRY_COUNT=5
+HUMIDITY_MAX = 100
+TEMPERATURE_MAX = 100
 
 class DHT22(object):
 
@@ -28,6 +30,14 @@ class DHT22(object):
             time.sleep(1)
             logging.warn("Failed to read DHT22, retry in {0}/{1}".format(retry_count, RETRY_COUNT))
             humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.pin)
+
+        if humidity > HUMIDITY_MAX:
+            logging.error("Humidity is invalid:{0}".format(humidity))
+            humidity = HUMIDITY_MAX
+
+        if temperature > TEMPERATURE_MAX:
+            logging.error("Humidity is invalid:{0}".format(humidity))
+            temperature = TEMPERATURE_MAX
 
         return humidity, temperature
 
