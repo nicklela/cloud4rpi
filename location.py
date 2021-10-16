@@ -16,7 +16,7 @@ class Location:
         try:
             data = requests.get(self.IP_LOCATION_URI, timeout = self.TIMEOUT)
         except requests.exceptions.Timeout:
-            logging.error('Timed out while doing get: ' + url)
+            logging.error('Timed out while doing get: ' + self.IP_LOCATION_URI)
         except Exception as e:
             logging.exception('Exception while doing get')
         
