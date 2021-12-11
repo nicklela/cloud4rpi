@@ -20,7 +20,10 @@ class Location:
         except Exception as e:
             logging.exception('Exception while doing get')
         
-        if (data is None or data.status_code != requests.codes.ok):
+        if (data is None):
+            return
+
+        if(data.status_code != requests.codes.ok):
             return
 
         json_data = json.loads(data.text)
