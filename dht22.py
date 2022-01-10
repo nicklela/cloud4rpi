@@ -13,6 +13,8 @@ class DHT22(object):
     def __init__(self, dht_pin = DHT_PIN):
         self.sensor = Adafruit_DHT.DHT22 
         self.pin = DHT_PIN
+        self.humidity = 0
+        self.temperature = 0
 
     def read(self):
         humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.pin)
@@ -33,13 +35,15 @@ class DHT22(object):
 
         if humidity > HUMIDITY_MAX:
             logging.error("Humidity is invalid:{0}".format(humidity))
-            humidity = HUMIDITY_MAX
+        else:
+            self.humidity = humidity
 
         if temperature > TEMPERATURE_MAX:
             logging.error("Humidity is invalid:{0}".format(humidity))
-            temperature = TEMPERATURE_MAX
+        else:
+            self.temperature = temperature
 
-        return humidity, temperature
+        return self.humidity, self.temperature
 
     def read_temperature(self):
         humidity, temperature = self.read()
