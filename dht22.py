@@ -39,7 +39,7 @@ class DHT22(object):
             self.humidity = humidity
 
         if temperature > TEMPERATURE_MAX:
-            logging.error("Humidity is invalid:{0}".format(humidity))
+            logging.error("Temperature is invalid:{0}".format(temperature))
         else:
             self.temperature = temperature
 
