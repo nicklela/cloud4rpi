@@ -13,6 +13,7 @@ class Location:
         self.lng = 0
 
     def __getLocationFromIP(self):
+        data = None
         try:
             data = requests.get(self.IP_LOCATION_URI, timeout = self.TIMEOUT)
         except requests.exceptions.Timeout:
